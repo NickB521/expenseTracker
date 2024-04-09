@@ -23,6 +23,9 @@ public class ExpensesServiceImpl implements ExpensesService {
     public Expense createExpense(Expense expense) throws ResourceCreationException {
         expense.setDateOfExpense(LocalDateTime.now());
         expense.setLastUpdatedDateOfExpense(LocalDateTime.now());
+        expense.setDOO(false);
+        expense.setCEO(false);
+        expense.setRequesterSupervisor(false);
         expense = expensesRepo.save(expense);
         return expense;
     }
@@ -43,9 +46,16 @@ public class ExpensesServiceImpl implements ExpensesService {
     public Expense updateExpenses(Long id, Expense expensesDetails) throws ResourceNotFoundException {
         Expense expense = getExpenseById(id);
         expense.setLastUpdatedDateOfExpense(LocalDateTime.now());
-        expense.setDesc(expensesDetails.getDesc());
-        expense.setAmount(expensesDetails.getAmount());
-        expense.setCategory(expensesDetails.getCategory());
+        expense.setFirstName(expensesDetails.getFirstName());
+        expense.setLastName(expensesDetails.getLastName());
+        expense.setItems(expensesDetails.getItems());
+        expense.setPurpose(expensesDetails.getPurpose());
+        expense.setExpensePrograms(expensesDetails.getExpensePrograms());
+        expense.setDateNeeded(expensesDetails.getDateNeeded());
+        expense.setRequester(expensesDetails.isRequester());
+        expense.setRequesterSupervisor(expensesDetails.isRequesterSupervisor());
+        expense.setDOO(expensesDetails.isDOO());
+        expense.setCEO(expensesDetails.isCEO());
         expense.setUserId(expensesDetails.getUserId());
         expense = expensesRepo.save(expense);
         return expense;
@@ -55,7 +65,7 @@ public class ExpensesServiceImpl implements ExpensesService {
     public Boolean deleteExpense(Long id) throws ResourceNotFoundException {
         Optional<Expense> expense = expensesRepo.findById(id);
         if(expense.isEmpty()){
-            throw new ResourceNotFoundException("Post does not exists, can not delete");
+            throw new ResourceNotFoundException("Expense does not exists, can not delete");
         }
         Expense expensetodel = expense.get();
         expensesRepo.delete(expensetodel);

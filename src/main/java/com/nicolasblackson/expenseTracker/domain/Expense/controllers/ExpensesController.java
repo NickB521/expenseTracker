@@ -43,7 +43,7 @@ public class ExpensesController {
     @PutMapping("{id}")
     public ResponseEntity<Expense> updateExpenses(@PathVariable("id") Long id, @RequestBody Expense expenseDetails){
         try{
-            Expense updatedExpenses = expensesService.updateExpenses(id, expenseDetails);
+            Expense updatedExpenses = expensesService.updateExpense(id, expenseDetails);
             ResponseEntity response = new ResponseEntity(updatedExpenses, HttpStatus.OK);
             return response;
         } catch (ResourceCreationException e) {

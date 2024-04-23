@@ -10,6 +10,6 @@ public interface ExpensesService {
     Expense createExpense(Expense expense) throws ResourceCreationException;
     Expense getExpenseById(Long id) throws ResourceNotFoundException;
     List<Expense> getAll();
-    Expense updateExpenses(Long id, Expense expenseDetails) throws ResourceNotFoundException;
+    Expense updateExpense(Long id, Expense expenseDetails) throws ResourceNotFoundException;
     Boolean deleteExpense(Long id) throws ResourceNotFoundException;
 }

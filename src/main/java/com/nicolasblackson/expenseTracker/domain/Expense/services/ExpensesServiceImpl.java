@@ -23,6 +23,7 @@ public class ExpensesServiceImpl implements ExpensesService {
     public Expense createExpense(Expense expense) throws ResourceCreationException {
         expense.setDateOfExpense(LocalDateTime.now());
         expense.setLastUpdatedDateOfExpense(LocalDateTime.now());
+        expense.setReason("");
         expense.setDOO(false);
         expense.setCEO(false);
         expense.setRequesterSupervisor(false);
@@ -43,14 +44,16 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Override
-    public Expense updateExpenses(Long id, Expense expensesDetails) throws ResourceNotFoundException {
+    public Expense updateExpense(Long id, Expense expensesDetails) throws ResourceNotFoundException {
         Expense expense = getExpenseById(id);
         expense.setLastUpdatedDateOfExpense(LocalDateTime.now());
         expense.setFirstName(expensesDetails.getFirstName());
         expense.setLastName(expensesDetails.getLastName());
         expense.setItems(expensesDetails.getItems());
         expense.setPurpose(expensesDetails.getPurpose());
+        expense.setReason(expensesDetails.getReason());
         expense.setExpensePrograms(expensesDetails.getExpensePrograms());
+        expense.setTotal(expensesDetails.getTotal());
         expense.setDateNeeded(expensesDetails.getDateNeeded());
         expense.setRequester(expensesDetails.isRequester());
         expense.setRequesterSupervisor(expensesDetails.isRequesterSupervisor());

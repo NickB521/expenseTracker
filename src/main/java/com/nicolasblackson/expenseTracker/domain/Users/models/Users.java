@@ -20,7 +20,13 @@ public class Users {
 
     private String name;
 
+    private String email;
+
+    private String pass;
+
     private Boolean admin;
+
+    private String role;
 
     @OneToMany
     @JoinColumn(name = "users_id")

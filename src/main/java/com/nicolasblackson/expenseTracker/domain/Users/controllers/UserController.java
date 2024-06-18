@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private UserService userService;
@@ -36,6 +37,12 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<Users> getUserById(@PathVariable("id") Integer id){
         Users users = userService.getUserById(id);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("name/{name}")
+    public ResponseEntity<Users> getUserByUserName(@PathVariable String name){
+        Users users = userService.getUserByUserName(name);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

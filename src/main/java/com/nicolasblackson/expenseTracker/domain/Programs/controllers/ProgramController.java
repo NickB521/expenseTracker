@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/programs")
+@CrossOrigin(origins = "*")
 public class ProgramController {
 
     private ProgramsService programsService;

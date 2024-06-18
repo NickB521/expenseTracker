@@ -21,9 +21,10 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern="MM-dd-yyyy")
+    //    @JsonFormat(pattern="MM-dd-yyyy")
     private LocalDateTime dateOfExpense;
 
+    @JsonFormat(pattern="MM-dd-yyyy HH:mm:ss")
     private LocalDateTime lastUpdatedDateOfExpense;
 
     @NonNull
@@ -41,6 +42,10 @@ public class Expense {
     @NonNull
     private String reason;
 
+    @NonNull
+    @Column(columnDefinition="TEXT")
+    private String receipt;
+
     @OneToMany
     @JoinColumn(name = "expense_id")
     private List<Programs> expensePrograms;
@@ -48,7 +53,11 @@ public class Expense {
     @NonNull
     private double total;
 
+    //    @JsonFormat(pattern="MM-dd-yyyy")
     private String dateNeeded;
+
+    //    @JsonFormat(pattern="MM-dd-yyyy")
+    private String dateDelivered;
 
     private boolean requester;
 
@@ -57,6 +66,12 @@ public class Expense {
     private boolean DOO;
 
     private boolean CEO;
+
+    private boolean recurring;
+
+    private boolean archive;
+
+    private String purchaser;
 
     @Column(name = "users_id")
     private Long userId;

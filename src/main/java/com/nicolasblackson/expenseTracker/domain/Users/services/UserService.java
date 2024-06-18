@@ -14,6 +14,7 @@ public interface UserService {
     Users createUser(Users users) throws ResourceCreationException;
 
     Users getUserById(Integer id) throws ResourceNotFoundException;
+    Users getUserByUserName(String name) throws ResourceNotFoundException;
     List<Users> getAll();
     Users updateUser(Integer id, Users usersDetails) throws ResourceNotFoundException;
     Boolean deleteUser(Integer id) throws ResourceNotFoundException;

@@ -1,6 +1,7 @@
 package com.nicolasblackson.expenseTracker.domain.Users.services;
 
-import com.nicolasblackson.expenseTracker.domain.Users.models.Users;
+import
+        com.nicolasblackson.expenseTracker.domain.Users.models.Users;
 import com.nicolasblackson.expenseTracker.domain.Users.repos.UserRepo;
 import com.nicolasblackson.expenseTracker.exceptions.ResourceCreationException;
 import com.nicolasblackson.expenseTracker.exceptions.ResourceNotFoundException;
@@ -10,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class
+UserServiceImpl implements UserService{
 
     private UserRepo userRepo;
 
@@ -19,9 +21,13 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public Users createUser(Users users) throws ResourceCreationException {
-        Optional<Users> optional = userRepo.findByUid(users.getUid());
-        if(optional.isPresent())
-            throw new ResourceCreationException("User already exist: " + users.getId());
+        Optional<Users> optional = userRepo.findByName(users.getName());
+        Optional<Users> optional2 = userRepo.findByEmail(users.getEmail());
+        if(optional.isPresent()){
+            throw new ResourceCreationException("User already exist: " + users.getName());
+        } else if(optional2.isPresent()){
+            throw new ResourceCreationException("Email already exist: " + users.getEmail());
+        }
         users = userRepo.save(users);
         return users;
     }
@@ -34,6 +40,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Users getUserByUserName(String name) throws ResourceNotFoundException {
+        Users users = userRepo.findByName(name)
+                .orElseThrow(()->new ResourceNotFoundException("No User with name: " + name));
+        return users;
+    }
+    @Override
     public List<Users> getAll() {
         return userRepo.findAll();
     }
@@ -42,7 +54,10 @@ public class UserServiceImpl implements UserService{
     public Users updateUser(Integer id, Users usersDetails) throws ResourceNotFoundException {
         Users users = getUserById(id);
         users.setName(usersDetails.getName());
-        users.setUserExpenses(usersDetails.getUserExpenses());
+//        users.setUserExpenses(usersDetails.getUserExpenses());
+        users.setPass(usersDetails.getPass());
+        users.setRole(usersDetails.getRole());
+        users.setEmail(usersDetails.getEmail());
         users.setAdmin(usersDetails.getAdmin());
         users = userRepo.save(users);
         return users;

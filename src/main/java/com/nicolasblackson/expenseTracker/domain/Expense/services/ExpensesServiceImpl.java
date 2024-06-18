@@ -24,9 +24,13 @@ public class ExpensesServiceImpl implements ExpensesService {
         expense.setDateOfExpense(LocalDateTime.now());
         expense.setLastUpdatedDateOfExpense(LocalDateTime.now());
         expense.setReason("");
+        expense.setReceipt("");
+        expense.setPurchaser("");
+        expense.setDateDelivered("");
         expense.setDOO(false);
         expense.setCEO(false);
         expense.setRequesterSupervisor(false);
+        expense.setArchive(false);
         expense = expensesRepo.save(expense);
         return expense;
     }
@@ -46,20 +50,25 @@ public class ExpensesServiceImpl implements ExpensesService {
     @Override
     public Expense updateExpense(Long id, Expense expensesDetails) throws ResourceNotFoundException {
         Expense expense = getExpenseById(id);
+        expense.setDateDelivered(expensesDetails.getDateDelivered());
+        expense.setPurchaser(expensesDetails.getPurchaser());
+        expense.setDateOfExpense(expensesDetails.getDateOfExpense());
         expense.setLastUpdatedDateOfExpense(LocalDateTime.now());
         expense.setFirstName(expensesDetails.getFirstName());
         expense.setLastName(expensesDetails.getLastName());
         expense.setItems(expensesDetails.getItems());
         expense.setPurpose(expensesDetails.getPurpose());
         expense.setReason(expensesDetails.getReason());
-        expense.setExpensePrograms(expensesDetails.getExpensePrograms());
+        expense.setReceipt(expensesDetails.getReceipt());
         expense.setTotal(expensesDetails.getTotal());
         expense.setDateNeeded(expensesDetails.getDateNeeded());
-        expense.setRequester(expensesDetails.isRequester());
+//        expense.setRequester(expensesDetails.isRequester());
         expense.setRequesterSupervisor(expensesDetails.isRequesterSupervisor());
         expense.setDOO(expensesDetails.isDOO());
         expense.setCEO(expensesDetails.isCEO());
-        expense.setUserId(expensesDetails.getUserId());
+        expense.setRecurring(expensesDetails.isRecurring());
+        expense.setArchive(expensesDetails.isArchive());
+//        expense.setUserId(expensesDetails.getUserId());
         expense = expensesRepo.save(expense);
         return expense;
     }
